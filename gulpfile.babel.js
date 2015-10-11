@@ -82,7 +82,8 @@ gulp.task('clean', (callback) => {
 gulp.task('serve', function () {
   // Start a webpack-dev-server
   let compiler = webpack(webpackConfig);
-  new WebpackDevServer(compiler, {}).listen(8080, 'localhost', function (err) {
+  new WebpackDevServer(compiler, {publicPath: '/public/', contentBase: 'http://localhost:8080'})
+    .listen(8080, 'localhost', function (err) {
     if (err) {
       throw new gutil.PluginError('webpack-dev-server', err);
     }
