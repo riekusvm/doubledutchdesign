@@ -15,6 +15,8 @@
     "del": "^1.2.0",
     "babel-loader": "5.3.2",
     "chai": "^3.2.0",
+    "css-loader": "^0.15.1",
+    "extract-text-webpack-plugin": "^0.8.2",
     "eslint": "^1.0.0",
     "eslint-plugin-react": "^3.2.0",
     "react-css-modules": "^3.2.3",
@@ -29,6 +31,8 @@
     "gulp-load-plugins": "^1.0.0-rc.1",
     "isparta": "^3.0.3",
     "istanbul": "^0.3.17",
+    "postcss-loader": "^0.4.3",
+    "style-loader": "^0.12.3",
     "mocha": "^2.2.5",
     "webpack": "^1.10.5"
   },
