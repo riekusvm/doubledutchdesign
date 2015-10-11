@@ -16,7 +16,7 @@ class Part extends React.Component {
     let icon = this.props.icon;
     return (
       <div>
-        <img src={icon.uri} />
+        <img src={icon.uri}/>
       </div>
     );
   }
