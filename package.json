@@ -1,0 +1,28 @@
+{
+  "name": "doubledutchbras",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "dependencies": {
+    "react": "^0.14.0",
+    "react-router": "1.0.0-rc1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.20",
+    "babel-core": "^5.8.20",
+    "babel-eslint": "^4.0.5",
+    "babelify": "^6.3.0",
+    "eslint": "^1.0.0",
+    "eslint-plugin-react": "^3.2.0",
+    "react-css-modules": "^3.2.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "http://git.erikveld.nl/technics/doubledutch.git"
+  }
+}
