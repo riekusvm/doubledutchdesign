@@ -9,8 +9,8 @@ export default class AppRouter extends React.Component {
       <Router>
         <Route path="/">
           <IndexRoute component={Application} />
-        <Route path="*" component={NotFound} />
         </Route>
+        <Route path="*" component={NotFound} />
       </Router>
     );
   }

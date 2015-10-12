@@ -1,0 +1,12 @@
+/*
+  usage:
+  .className
+
+  import in js: import <alias> from 'file.css'
+
+  use className={alias.className}
+ */
+
+.app{
+
+}

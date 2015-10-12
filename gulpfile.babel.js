@@ -1,98 +1,136 @@
-import gulp from 'gulp';
-import gplugins from 'gulp-load-plugins';
-import del from 'del';
-import path from 'path';
-import webpack from 'webpack';
-import webpackConfig from './build/webpack';
-import WebpackDevServer from 'webpack-dev-server';
+import Gulp from 'gulp';
+import webserver from 'gulp-webserver';
+import browserify from 'browserify';
+import babelify from 'babelify';
+import uglify from 'gulp-uglify';
+import rename from 'gulp-rename';
+import buffer from 'vinyl-buffer';
+import source from 'vinyl-source-stream';
+import watchify from 'watchify';
+import assign from 'lodash.assign';
 import gutil from 'gulp-util';
+import del from 'del';
+import sequence from 'gulp-sequence';
+import CSSModulesify from 'css-modulesify';
 
-const DIRS = {
-  DIST: {
-    ROOT: 'dist',
-    SERVER: 'dist/server',
-    APP: 'dist/app',
-    CSS: 'dist/css',
-    CLIENT: 'dist/js'
-  },
-  SRC: {
-    ROOT: 'src',
-    CSS: 'src/stylus',
-    APP: 'src/app',
-    SERVER: 'src/server'
-  }
+const config = {
+  mainJsFile: 'index.js',
+  mainHTMLFile: 'index.html',
+  srcDir: './src',
+  devDir: './dev',
+  distDir: './dist',
+  distFile: 'js/bundle.js'
 };
 
-// Lazy load the gulp plugins.
-const gp = gplugins({lazy: true});
+// add custom browserify options here
+const customOpts = {
+  entries: [config.srcDir + '/' + config.mainJsFile],
+  debug: true
+};
 
-/**
- * Bundle all the css files and copy them to the distribution directory.
- */
-gulp.task('stylus', () => {
-  return gulp.src(path.join(DIRS.SRC.CSS, '*.styl'))
-    .pipe(gp.stylus({compressed: true}))
-    .pipe(gp.concat('app.css'))
-    .pipe(gulp.dest(path.join(DIRS.DIST.CSS)));
+const babelifyConfig = {
+  optional: ['es7.classProperties']
+};
+
+function browserifyIt(folder) {
+  const cssStyle = (folder === config.distDir) ? CSSModulesify.generateShortName : '';
+  return browserify(config.srcDir + '/' + config.mainJsFile)
+    .transform(babelify.configure(babelifyConfig))
+    .plugin(CSSModulesify, {output: folder + '/app.css', generateScopedName: cssStyle})
+    .bundle()
+    .pipe(source(config.mainJsFile))
+    .pipe(buffer())
+    .pipe(rename(config.distFile))
+    .pipe(uglify())
+    .pipe(Gulp.dest(folder));
+}
+
+
+Gulp.task('browserifyDev', () => {
+  browserifyIt(config.devDir);
 });
 
-/**
- * Transform the client code to es5, bundle, minimize and copy to the
- * distribution directory.
- */
-gulp.task('client', () => {
-  webpack(webpackConfig, (error, stats) => {
-    if (error) {
-      throw new Error(error);
-    }
+Gulp.task('browserify', () => {
+  browserifyIt(config.distDir);
+});
 
-    let jsonStats = stats.toJson();
-    if (jsonStats.errors.length > 0) {
-      gp.util.error(jsonStats.errors);
-    }
-    if (jsonStats.warnings.length > 0) {
-      gp.util.warn(jsonStats.warnings);
-    }
+function clean(folder) {
+  del(folder + '/*').then((paths) => {
+    gutil.log('Deleted files/folders:\n', paths.join('\n'));
   });
+}
+
+Gulp.task('devclean', () => {
+  clean(config.devDir);
 });
 
-/**
- * Move the server to the distribution directory.
- */
-gulp.task('server', () => {
-  return gulp.src(path.join(DIRS.SRC.SERVER, '*.js'))
-    .pipe(gulp.dest(path.join(DIRS.DIST.SERVER)));
+Gulp.task('buildclean', () => {
+  clean(config.distDir);
 });
 
-/**
- * Move the application code to the distribution directory.
- */
-gulp.task('app', () => {
-  return gulp.src([path.join(DIRS.SRC.APP, '*'), path.join(DIRS.SRC.APP, '**/*')])
-    .pipe(gulp.dest(path.join(DIRS.DIST.APP)));
+function html(htmlFile, dest) {
+  return Gulp.src(config.srcDir + '/' + htmlFile)
+  .pipe(Gulp.dest(dest));
+}
+
+function fonts(dest) {
+  Gulp.src('./node_modules/font-awesome/css/font-awesome.min.css')
+  .pipe(Gulp.dest(dest + '/css/'));
+
+  Gulp.src('./node_modules/font-awesome/fonts/*')
+  .pipe(Gulp.dest(dest + '/fonts/'));
+}
+
+Gulp.task('devfonts', () => {
+  return fonts(config.devDir);
 });
 
-/**
- * Clean the distribution directory.
- */
-gulp.task('clean', (callback) => {
-  return del(DIRS.DIST.ROOT, callback);
+Gulp.task('buildfonts', () => {
+  return fonts(config.distDir);
 });
 
-gulp.task('serve', function () {
-  // Start a webpack-dev-server
-  let compiler = webpack(webpackConfig);
-  new WebpackDevServer(compiler, {publicPath: '/public/', contentBase: 'http://localhost:8080'})
-    .listen(8080, 'localhost', function (err) {
-    if (err) {
-      throw new gutil.PluginError('webpack-dev-server', err);
-    }
-    // Server listening
-    gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
-  });
+Gulp.task('buildhtml', () => {
+  return html(config.mainHTMLFile, config.distDir);
 });
 
-/**
- * Clean and build the project.
- */
-gulp.task('default', gp.sequence('clean', ['server', 'app', 'stylus'], 'client'));
+Gulp.task('devhtml', () => {
+  return html(config.mainHTMLFile, config.devDir);
+});
+
+function serve(dest) {
+  Gulp.src(dest)
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: false,
+      open: true
+    }));
+}
+
+Gulp.task('devserve', () => {
+  serve(config.devDir);
+});
+
+Gulp.task('run', () => {
+  serve(config.distDir);
+});
+
+const opts = assign({}, watchify.args, customOpts);
+const b = watchify(browserify(opts))
+.on('update', bundle)
+.on('log', gutil.log);
+
+// add transformations here
+b.transform(babelify.configure(babelifyConfig));
+b.plugin(CSSModulesify, {output: config.devDir + '/app.css'});
+
+function bundle() {
+  return b.bundle()
+  .pipe(source(config.distFile))
+  .pipe(buffer())
+  .pipe(Gulp.dest(config.devDir));
+}
+
+Gulp.task('build', sequence('buildclean', ['browserify', 'buildhtml']));
+Gulp.task('js', bundle);
+Gulp.task('dev', sequence('devclean', ['browserifyDev'],
+                          ['js', 'devhtml'], 'devserve'));
