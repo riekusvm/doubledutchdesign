@@ -73,22 +73,6 @@ function html(htmlFile, dest) {
   .pipe(Gulp.dest(dest));
 }
 
-function fonts(dest) {
-  Gulp.src('./node_modules/font-awesome/css/font-awesome.min.css')
-  .pipe(Gulp.dest(dest + '/css/'));
-
-  Gulp.src('./node_modules/font-awesome/fonts/*')
-  .pipe(Gulp.dest(dest + '/fonts/'));
-}
-
-Gulp.task('devfonts', () => {
-  return fonts(config.devDir);
-});
-
-Gulp.task('buildfonts', () => {
-  return fonts(config.distDir);
-});
-
 Gulp.task('buildhtml', () => {
   return html(config.mainHTMLFile, config.distDir);
 });
@@ -132,5 +116,4 @@ function bundle() {
 
 Gulp.task('build', sequence('buildclean', ['browserify', 'buildhtml']));
 Gulp.task('js', bundle);
-Gulp.task('dev', sequence('devclean', ['browserifyDev'],
-                          ['js', 'devhtml'], 'devserve'));
+Gulp.task('dev', sequence('devclean', ['browserifyDev'], ['js', 'devhtml'], 'devserve'));
