@@ -132,7 +132,7 @@ export default [
       },
       {
         name: 'STRAP',
-        description: 'strap 2',
+        description: 'strap 3',
         id: '0D',
         image: 'strap3.png',
         options: [
@@ -159,5 +159,8 @@ export default [
     size: ''},
   {
     type: 'PANTY'
+  },
+  {
+    type: 'BOXER'
   }
 ];
