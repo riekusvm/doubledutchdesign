@@ -1,30 +1,14 @@
-'use strict';
-
 import React from 'react';
 
-class Part extends React.Component {
-  constructor(props) {
-    super(props);
+export default class Part extends React.Component {
+
+  static propTypes = {
+    data: React.PropTypes.object
   }
 
-  shouldComponentUpdate() {
-    return React.addons.PureRenderMixin.shouldComponentUpdate
-      .apply(this, arguments);
-  }
-
-  render() {
-    let icon = this.props.icon;
+  render = () => {
     return (
-      <div>
-        <img src={icon.uri}/>
-      </div>
+    <div>{this.props.data.description}</div>
     );
   }
 }
-
-Part.displayName = 'Part';
-Part.propTypes = {
-  icon: React.PropTypes.object
-};
-
-export default Part;
