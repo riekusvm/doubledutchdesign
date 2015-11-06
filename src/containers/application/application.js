@@ -1,5 +1,8 @@
 import React from 'react';
 import css from './application.css'
+import css from './application.css';
+import Editor from '../editor/editor';
+import data from '../../mock-data';
 
 export default class Application extends React.Component {
   constructor(props) {
@@ -43,6 +46,8 @@ export default class Application extends React.Component {
     return (
       <div className={css.application}>
         {products}
+        <Editor productType="BRA" productData={data} />
+        <Editor productType="PANTY" productData={data} />
       </div>
     );
   }
