@@ -46,7 +46,6 @@ export default class Application extends React.Component {
     return (
       <div className={css.application}>
         <Editor productType="BRA" productData={data[0]} />
-        <Editor productType="PANTY" productData={data[1]} />
       </div>
     );
   }

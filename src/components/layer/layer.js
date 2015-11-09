@@ -12,19 +12,24 @@ export default class Layer extends React.Component {
 
   static propTypes = {
     parts: React.PropTypes.array,
-    zIndex: React.PropTypes.number
+    zIndex: React.PropTypes.number,
+    interactive: React.PropTypes.bool
   }
 
   getNextButton = () => {
-    return (
-      <Link onClick={this.goNext} className={css.next}>&gt;</Link>
-    );
+    if (this.props.interactive) {
+      return (
+        <Link onClick={this.goNext} className={css.next}>&gt;</Link>
+      );
+    }
   }
 
   getPreviousButton = () => {
-    return (
-      <Link onClick={this.goPrevious} className={css.previous}>&lt;</Link>
-    );
+    if (this.props.interactive) {
+      return (
+        <Link onClick={this.goPrevious} className={css.previous}>&lt;</Link>
+      );
+    }
   }
 
   goPrevious = () => {
@@ -51,14 +56,13 @@ export default class Layer extends React.Component {
   }
 
   render = () => {
-    const previousButton = this.getPreviousButton();
-    const nextButton = this.getNextButton();
     return (
-      <div className={css.layer} style={{zIndex: this.props.zIndex}}>
-        <div className={css.content}>
-          {this.props.parts[0].name}  ({this.props.parts.length}) <br />
-          {previousButton}<Part data={this.getData()}/>{nextButton}
+      <div className={css.layer}>
+        {this.getPreviousButton()}
+        <div className={css.content} style={{zIndex: this.props.zIndex}}>
+          <Part data={this.getData()}/>
         </div>
+        {this.getNextButton()}
       </div>
     );
   }

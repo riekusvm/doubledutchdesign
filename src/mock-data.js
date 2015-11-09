@@ -48,7 +48,15 @@ export default [
         name: 'PRINT',
         description: 'flowers print',
         id: '05',
-        image: 'print/cup met print.png',
+        image: 'print/cup-met-print.png',
+        price: '7',
+        meta: {}
+      },
+      {
+        name: 'PRINT',
+        description: 'flowers print (inverted)',
+        id: '06',
+        image: 'print/cup-met-print-2.png',
         price: '7',
         meta: {}
       },
@@ -88,7 +96,7 @@ export default [
         name: 'POUCH',
         description: 'pouch',
         id: '0B',
-        image: 'pouch.png',
+        image: 'empty.png',
         price: '5',
         meta: {}
       },

@@ -9,7 +9,7 @@ export default class Editor extends React.Component {
     super(props, state);
     this.state = {
       part: ''
-    }
+    };
   }
 
   static propTypes = {
@@ -31,11 +31,17 @@ export default class Editor extends React.Component {
             parts.push(part);
           }
         });
+        let interactive = this.isCurrentPart(layer);
         returnValue.push(<Layer zIndex={index} parts={parts}
-          key={this.props.productType + '_' + layer} />);
+          key={this.props.productType + '_' + layer}
+          interactive={interactive} />);
       }
     });
     return returnValue;
+  }
+
+  isCurrentPart = (part) => {
+    return part === this.state.part;
   }
 
   getParts = () => {
@@ -44,26 +50,21 @@ export default class Editor extends React.Component {
   }
 
   componentWillMount = () => {
-    console.log('will mount');
     this.setState({part: orders[this.props.productType][0]});
   }
 
-  partChanged = (part, event) => {
-    console.log('part changed ',part);
+  partChanged = (part) => {
     this.setState({part: part});
   }
 
   render = () => {
-    const layers = this.getLayers();
-    const parts = this.getParts();
     return (
       <div>
         <div>
-          {parts}
+          {this.getParts()}
         </div>
         <div>
-          Editor
-          {layers}
+          {this.getLayers()}
         </div>
       </div>
     );

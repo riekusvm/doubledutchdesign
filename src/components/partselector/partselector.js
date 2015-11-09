@@ -12,7 +12,7 @@ export default class PartSelector extends React.Component {
     let returnValue = [];
     if (this.props.parts[0]) {
       this.props.parts.forEach((part) => {
-        returnValue.push(<Link onClick={this.onClick.bind(this, part)} key={part}>{part}</Link>);
+        returnValue.push(<Link onClick={this.onClick.bind(this, part)} key={part}>{part} </Link>);
       });
     }
     return returnValue;
@@ -24,11 +24,9 @@ export default class PartSelector extends React.Component {
   }
 
   render = () => {
-    const partSelectors = this.getParts();
     return (
       <div>
-        PartSelector
-      {partSelectors}
+      {this.getParts()}
       </div>
     );
   }

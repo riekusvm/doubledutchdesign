@@ -3,7 +3,7 @@
 }
 
 .layer .content {
-  position: relative;
+  position: absolute;
 }
 
 .previous, .next {

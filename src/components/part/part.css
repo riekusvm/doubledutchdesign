@@ -10,7 +10,7 @@
 }
 
 .part:hover .description {
-  display: block;
+  /*display: block;*/
 }
 
 .part img {
