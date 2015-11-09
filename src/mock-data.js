@@ -1,75 +1,93 @@
+const strapOptions = [
+  {
+    id: '01',
+    name: 'short',
+    price: '3'
+  },
+  {
+    id: '02',
+    name: 'medium',
+    price: '5'
+  },
+  {
+    id: '03',
+    name: 'large',
+    price: '6'
+  }
+];
+
 export default [
   {
     type: 'BRA',
     parts: [
       {
         name: 'CUP',
-        description: 'red',
+        description: 'black cup',
         id: '01',
-        image: 'cup-red.png',
+        image: 'cup/zwarte cup.png',
         price: '5',
         meta: {}
       },
       {
         name: 'CUP',
-        description: 'pink',
+        description: 'pink cup',
         id: '02',
-        image: 'cup-pink.png',
+        image: 'cup/roze cup.png',
         price: '6',
         meta: {}
       },
       {
         name: 'CUP',
-        description: 'black',
-        id: '03',
-        image: 'cup-black.png',
-        price: '7',
+        description: 'no cup',
+        id: 'XX',
+        image: 'empty.png',
+        price: '0',
         meta: {}
       },
       {
         name: 'PRINT',
-        description: 'amsterdam street art',
+        description: 'flowers print',
         id: '05',
-        image: 'print-streetart.png',
+        image: 'print/cup met print.png',
         price: '7',
         meta: {}
       },
       {
         name: 'PRINT',
-        description: 'retro',
-        id: '06',
-        image: 'print-retro.png',
-        price: '5',
-        meta: {}
-      },
-      {
-        name: 'PRINT',
-        description: 'flowers',
-        id: '07',
-        image: 'print-flowers.png',
-        price: '5',
+        description: 'no print',
+        id: 'XX',
+        image: 'empty.png',
+        price: '0',
         meta: {}
       },
       {
         name: 'DECORATION',
-        description: 'a decoration',
+        description: 'mint green bows',
         id: '08',
-        image: 'decoration.png',
+        image: 'bows/Mintgreen bows.png',
         price: '2',
         meta: {}
       },
       {
         name: 'DECORATION',
-        description: 'other decoration',
+        description: 'soft pink bows',
         id: '09',
-        image: 'decoration2.png',
+        image: 'bows/Soft pink bows.png',
+        price: '3',
+        meta: {}
+      },
+      {
+        name: 'DECORATION',
+        description: 'no decoration',
+        id: 'XX',
+        image: 'empty.png',
         price: '3',
         meta: {}
       },
       {
         name: 'POUCH',
         description: 'pouch',
-        id: '0A',
+        id: '0B',
         image: 'pouch.png',
         price: '5',
         meta: {}
@@ -77,81 +95,48 @@ export default [
       {
         name: 'POUCH',
         description: 'no pouch',
-        id: '0A',
+        id: 'XX',
         image: 'empty.png',
         price: '0',
         meta: {}
       },
       {
         name: 'STRAP',
-        description: 'strap 1',
-        id: '0B',
-        image: 'strap.png',
-        options: [
-          {
-            id: '01',
-            name: 'short',
-            price: '3'
-          },
-          {
-            id: '02',
-            name: 'medium',
-            price: '5'
-          },
-          {
-            id: '03',
-            name: 'large',
-            price: '6'
-          }
-        ],
-        meta: {}
-      },
-      {
-        name: 'STRAP',
-        description: 'strap 2',
-        id: '0C',
-        image: 'strap2.png',
-        options: [
-          {
-            id: '01',
-            name: 'short',
-            price: '3'
-          },
-          {
-            id: '02',
-            name: 'medium',
-            price: '5'
-          },
-          {
-            id: '03',
-            name: 'large',
-            price: '6'
-          }
-        ],
-        meta: {}
-      },
-      {
-        name: 'STRAP',
-        description: 'strap 3',
+        description: 'mint green straps',
         id: '0D',
-        image: 'strap3.png',
-        options: [
-          {
-            id: '01',
-            name: 'short',
-            price: '3'
-          },
-          {
-            id: '02',
-            name: 'medium',
-            price: '5'
-          },
-          {
-            id: '03',
-            name: 'large',
-            price: '6'
-          }
-        ],
+        image: 'straps/mintgroene bandjes logo.png',
+        options: strapOptions,
+        meta: {}
+      },
+      {
+        name: 'STRAP',
+        description: 'white straps',
+        id: '0E',
+        image: 'straps/witte bandjes.png',
+        options: strapOptions,
+        meta: {}
+      },
+      {
+        name: 'STRAP',
+        description: 'soft pink straps',
+        id: '0F',
+        image: 'straps/zachtroze bandjes logo.png',
+        options: strapOptions,
+        meta: {}
+      },
+      {
+        name: 'STRAP',
+        description: 'black straps',
+        id: '10',
+        image: 'straps/zwarte bandjes logo.png',
+        options: strapOptions,
+        meta: {}
+      },
+      {
+        name: 'STRAP',
+        description: 'no straps',
+        id: 'XX',
+        image: 'empty.png',
         meta: {}
       }
     ],
@@ -159,8 +144,16 @@ export default [
     size: ''},
   {
     type: 'PANTY'
+    /*
+MODEL
+PRINT
+     */
   },
   {
     type: 'BOXER'
+    /*
+    PRINT
+    MODEL
+     */
   }
 ];
