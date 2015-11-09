@@ -1,0 +1,25 @@
+.layer {
+
+}
+
+.layer .content {
+  position: relative;
+}
+
+.previous, .next {
+  position: absolute;
+  top: 50%;
+  padding: 20px;
+  margin-top: -10px;
+}
+
+.previous {
+  z-index: 100;
+  left: 0;
+}
+
+.next {
+  z-index: 101;
+  right: 0;
+  margin-right: 20px;
+}

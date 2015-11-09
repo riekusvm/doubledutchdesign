@@ -1,0 +1,18 @@
+.part {
+  position: relative;
+}
+
+.part .description {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: none;
+}
+
+.part:hover .description {
+  display: block;
+}
+
+.part img {
+  width: 90vw;
+}

@@ -81,6 +81,20 @@ Gulp.task('devhtml', () => {
   return html(config.mainHTMLFile, config.devDir);
 });
 
+function images(src, dest) {
+  return Gulp.src([config.srcDir + '/' + src + '/*.png',
+                   config.srcDir + '/' + src + '/**/*.png'])
+  .pipe(Gulp.dest(dest));
+}
+
+Gulp.task('devimages', () => {
+  return images('images', config.devDir + '/images');
+});
+
+Gulp.task('buildimages', () => {
+  return images('images', config.distDir + '/images');
+});
+
 function serve(dest) {
   Gulp.src(dest)
     .pipe(webserver({
@@ -114,6 +128,7 @@ function bundle() {
   .pipe(Gulp.dest(config.devDir));
 }
 
-Gulp.task('build', sequence('buildclean', ['browserify', 'buildhtml']));
+Gulp.task('build', sequence('buildclean', ['browserify', 'buildhtml', 'buildimages']));
 Gulp.task('js', bundle);
-Gulp.task('dev', sequence('devclean', ['browserifyDev'], ['js', 'devhtml'], 'devserve'));
+Gulp.task('dev', sequence('devclean', ['browserifyDev'], ['js', 'devhtml', 'devimages'],
+'devserve'));

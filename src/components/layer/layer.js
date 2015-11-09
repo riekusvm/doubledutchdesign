@@ -1,6 +1,7 @@
 import React from 'react';
 import Part from '../part/part';
 import {Link} from 'react-router';
+import css from './layer.css';
 
 export default class Layer extends React.Component {
 
@@ -11,23 +12,18 @@ export default class Layer extends React.Component {
 
   static propTypes = {
     parts: React.PropTypes.array,
-    data: React.PropTypes.object,
-    index: React.PropTypes.number
-  }
-
-  static defaultProps = {
-    index: 0
+    zIndex: React.PropTypes.number
   }
 
   getNextButton = () => {
     return (
-      <Link onClick={this.goNext}>&gt;</Link>
+      <Link onClick={this.goNext} className={css.next}>&gt;</Link>
     );
   }
 
   getPreviousButton = () => {
     return (
-      <Link onClick={this.goPrevious}>&lt;</Link>
+      <Link onClick={this.goPrevious} className={css.previous}>&lt;</Link>
     );
   }
 
@@ -58,9 +54,11 @@ export default class Layer extends React.Component {
     const previousButton = this.getPreviousButton();
     const nextButton = this.getNextButton();
     return (
-      <div>
-        {this.props.parts[0].name}  ({this.props.parts.length}) <br />
-        {previousButton}<Part data={this.getData()}/>{nextButton}
+      <div className={css.layer} style={{zIndex: this.props.zIndex}}>
+        <div className={css.content}>
+          {this.props.parts[0].name}  ({this.props.parts.length}) <br />
+          {previousButton}<Part data={this.getData()}/>{nextButton}
+        </div>
       </div>
     );
   }
