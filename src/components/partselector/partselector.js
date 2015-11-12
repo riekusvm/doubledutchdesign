@@ -5,7 +5,7 @@ export default class PartSelector extends React.Component {
 
   static propTypes = {
     parts: React.PropTypes.array,
-    onPartChange: React.PropTypes.func
+    onChange: React.PropTypes.func
   }
 
   getParts = () => {
@@ -20,7 +20,7 @@ export default class PartSelector extends React.Component {
 
   onClick = (part, event) => {
     event.preventDefault();
-    this.props.onPartChange.apply(this, [part]);
+    this.props.onChange.apply(this, [part]);
   }
 
   render = () => {

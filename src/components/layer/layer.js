@@ -13,7 +13,8 @@ export default class Layer extends React.Component {
   static propTypes = {
     parts: React.PropTypes.array,
     zIndex: React.PropTypes.number,
-    interactive: React.PropTypes.bool
+    interactive: React.PropTypes.bool,
+    onChange: React.PropTypes.func
   }
 
   getNextButton = () => {
@@ -48,6 +49,7 @@ export default class Layer extends React.Component {
     if (newIndex > this.props.parts.length - 1) {
       newIndex = 0;
     }
+    this.props.onChange.apply(this, [this.props.parts[newIndex]]);
     this.setState({index: newIndex});
   }
 
