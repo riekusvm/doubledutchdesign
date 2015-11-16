@@ -89,7 +89,7 @@ export default [
         description: 'no decoration',
         id: 'XX',
         image: 'empty.png',
-        price: 3,
+        price: 0,
         meta: {}
       },
       {

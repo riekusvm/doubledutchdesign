@@ -37,8 +37,14 @@ export default class Editor extends React.Component {
           key={this.props.productType + '_' + layer}
           interactive={interactive} onChange={this.partSelected} />);
 
-        this.calculatePrice(parts[0]);
-        this.calculateSKU(parts[0]);
+        const layerIndex = this.getLayerIndex(parts[0].name);
+
+        if (this.prices[layerIndex] === undefined) {
+          this.calculatePrice(parts[0]);
+        }
+        if (this.skuParts[layerIndex] === undefined) {
+          this.calculateSKU(parts[0]);
+        }
       }
     });
 
@@ -87,8 +93,8 @@ export default class Editor extends React.Component {
       return this.getDefaultSKU();
     }
     if (layer !== null) {
-      let layerIndex = orders[this.props.productType].indexOf(layer.name);
-      this.skuParts[layerIndex] = layer.id;
+      const index = this.getLayerIndex(layer.name);
+      this.skuParts[index] = layer.id;
     }
     return this.skuParts.reduce((a, b) => {
       const sep = (a === '') ? '' : SKU_SEPARATOR;
@@ -99,10 +105,14 @@ export default class Editor extends React.Component {
 
   calculatePrice = (layer = null) => {
     if (layer !== null) {
-      let layerIndex = orders[this.props.productType].indexOf(layer.name);
-      this.prices[layerIndex] = layer.price;
+      const index = this.getLayerIndex(layer.name);
+      this.prices[index] = layer.price;
     }
     return this.prices.reduce((a, b) => a + b, 0);
+  }
+
+  getLayerIndex = (name) => {
+    return orders[this.props.productType].indexOf(name);
   }
 
   getDefaultSKU = () => {
