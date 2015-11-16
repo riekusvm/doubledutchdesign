@@ -2,17 +2,17 @@ const strapOptions = [
   {
     id: '01',
     name: 'short',
-    price: '3'
+    price: 3
   },
   {
     id: '02',
     name: 'medium',
-    price: '5'
+    price: 5
   },
   {
     id: '03',
     name: 'large',
-    price: '6'
+    price: 6
   }
 ];
 
@@ -25,7 +25,7 @@ export default [
         description: 'black cup',
         id: '01',
         image: 'cup/zwarte cup.png',
-        price: '5',
+        price: 5,
         meta: {}
       },
       {
@@ -33,7 +33,7 @@ export default [
         description: 'pink cup',
         id: '02',
         image: 'cup/roze cup.png',
-        price: '6',
+        price: 6,
         meta: {}
       },
       {
@@ -41,7 +41,7 @@ export default [
         description: 'no cup',
         id: 'XX',
         image: 'empty.png',
-        price: '0',
+        price: 0,
         meta: {}
       },
       {
@@ -49,7 +49,7 @@ export default [
         description: 'flowers print',
         id: '05',
         image: 'print/cup-met-print.png',
-        price: '7',
+        price: 7,
         meta: {}
       },
       {
@@ -57,7 +57,7 @@ export default [
         description: 'flowers print (inverted)',
         id: '06',
         image: 'print/cup-met-print-2.png',
-        price: '7',
+        price: 7,
         meta: {}
       },
       {
@@ -65,7 +65,7 @@ export default [
         description: 'no print',
         id: 'XX',
         image: 'empty.png',
-        price: '0',
+        price: 0,
         meta: {}
       },
       {
@@ -73,7 +73,7 @@ export default [
         description: 'mint green bows',
         id: '08',
         image: 'bows/Mintgreen bows.png',
-        price: '2',
+        price: 2,
         meta: {}
       },
       {
@@ -81,7 +81,7 @@ export default [
         description: 'soft pink bows',
         id: '09',
         image: 'bows/Soft pink bows.png',
-        price: '3',
+        price: 3,
         meta: {}
       },
       {
@@ -89,7 +89,7 @@ export default [
         description: 'no decoration',
         id: 'XX',
         image: 'empty.png',
-        price: '3',
+        price: 3,
         meta: {}
       },
       {
@@ -97,7 +97,7 @@ export default [
         description: 'pouch',
         id: '0B',
         image: 'empty.png',
-        price: '5',
+        price: 5,
         meta: {}
       },
       {
@@ -105,7 +105,7 @@ export default [
         description: 'no pouch',
         id: 'XX',
         image: 'empty.png',
-        price: '0',
+        price: 0,
         meta: {}
       },
       {
@@ -114,7 +114,9 @@ export default [
         id: '0D',
         image: 'straps/mintgroene bandjes logo.png',
         options: strapOptions,
-        meta: {}
+        meta: {},
+        // temporary, until we calculate price from options
+        price: 2
       },
       {
         name: 'STRAP',
@@ -122,7 +124,9 @@ export default [
         id: '0E',
         image: 'straps/witte bandjes.png',
         options: strapOptions,
-        meta: {}
+        meta: {},
+        // temporary, until we calculate price from options
+        price: 2
       },
       {
         name: 'STRAP',
@@ -130,7 +134,9 @@ export default [
         id: '0F',
         image: 'straps/zachtroze bandjes logo.png',
         options: strapOptions,
-        meta: {}
+        meta: {},
+        // temporary, until we calculate price from options
+        price: 2
       },
       {
         name: 'STRAP',
@@ -138,14 +144,18 @@ export default [
         id: '10',
         image: 'straps/zwarte bandjes logo.png',
         options: strapOptions,
-        meta: {}
+        meta: {},
+        // temporary, until we calculate price from options
+        price: 2
       },
       {
         name: 'STRAP',
         description: 'no straps',
         id: 'XX',
         image: 'empty.png',
-        meta: {}
+        meta: {},
+        // temporary, until we calculate price from options
+        price: 0
       }
     ],
     SKU: '',

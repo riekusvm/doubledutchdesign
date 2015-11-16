@@ -6,7 +6,7 @@ import PartSelector from '../../components/partselector/partselector';
 
 export default class Editor extends React.Component {
 
-  SKU = '';
+  prices = [];
 
   constructor(props, state) {
     super(props, state);
@@ -73,9 +73,21 @@ export default class Editor extends React.Component {
 
   partSelected = (layer) => {
     let layerIndex = orders[this.props.productType].indexOf(layer.name);
+    const sku = this.calculateSKU(layerIndex, layer);
+    const price = this.calculatePrice(layer);
+    this.setState({SKU: sku, price: price});
+  }
+
+  calculateSKU = (changedPart, layer) => {
     let skuParts = this.state.SKU.split(SKU_SEPARATOR);
-    skuParts[layerIndex] = layer.id;
-    this.setState({SKU: skuParts.join(SKU_SEPARATOR)});
+    skuParts[changedPart] = layer.id;
+    return skuParts.join(SKU_SEPARATOR);
+  }
+
+  calculatePrice = (layer) => {
+    let layerIndex = orders[this.props.productType].indexOf(layer.name);
+    this.prices[layerIndex] = layer.price;
+    return this.prices.reduce((a, b) => a + b, 0);
   }
 
   getDefaultSKU = () => {
