@@ -7,6 +7,7 @@ import PartSelector from '../../components/partselector/partselector';
 export default class Editor extends React.Component {
 
   prices = [];
+  skuParts = [];
 
   constructor(props, state) {
     super(props, state);
@@ -34,7 +35,10 @@ export default class Editor extends React.Component {
         let interactive = this.isCurrentPart(layer);
         returnValue.push(<Layer zIndex={index} parts={parts}
           key={this.props.productType + '_' + layer}
-          interactive={interactive} onChange={this.partSelected}/>);
+          interactive={interactive} onChange={this.partSelected} />);
+
+        this.calculatePrice(parts[0]);
+        this.calculateSKU(parts[0]);
       }
     });
 
@@ -63,7 +67,8 @@ export default class Editor extends React.Component {
   componentWillMount = () => {
     this.setState({
       part: orders[this.props.productType][0],
-      SKU: this.getDefaultSKU()
+      SKU: this.calculateSKU(),
+      price: this.calculatePrice()
     });
   }
 
@@ -72,21 +77,31 @@ export default class Editor extends React.Component {
   }
 
   partSelected = (layer) => {
-    let layerIndex = orders[this.props.productType].indexOf(layer.name);
-    const sku = this.calculateSKU(layerIndex, layer);
+    const sku = this.calculateSKU(layer);
     const price = this.calculatePrice(layer);
     this.setState({SKU: sku, price: price});
   }
 
-  calculateSKU = (changedPart, layer) => {
-    let skuParts = this.state.SKU.split(SKU_SEPARATOR);
-    skuParts[changedPart] = layer.id;
-    return skuParts.join(SKU_SEPARATOR);
+  calculateSKU = (layer = null) => {
+    if (this.state.SKU === '') {
+      return this.getDefaultSKU();
+    }
+    if (layer !== null) {
+      let layerIndex = orders[this.props.productType].indexOf(layer.name);
+      this.skuParts[layerIndex] = layer.id;
+    }
+    return this.skuParts.reduce((a, b) => {
+      const sep = (a === '') ? '' : SKU_SEPARATOR;
+      const bb = (b === '') ? SKU_TEMPLATE : b;
+      return a + sep + bb;
+    }, '');
   }
 
-  calculatePrice = (layer) => {
-    let layerIndex = orders[this.props.productType].indexOf(layer.name);
-    this.prices[layerIndex] = layer.price;
+  calculatePrice = (layer = null) => {
+    if (layer !== null) {
+      let layerIndex = orders[this.props.productType].indexOf(layer.name);
+      this.prices[layerIndex] = layer.price;
+    }
     return this.prices.reduce((a, b) => a + b, 0);
   }
 
@@ -106,6 +121,10 @@ export default class Editor extends React.Component {
         </div>
         <div>
           {this.getLayers()}
+        </div>
+        <div>
+          {this.state.price ? '€ ' + this.state.price : ''}
+          {this.state.SKU ? ' SKU: ' + this.state.SKU : ''}
         </div>
       </div>
     );
