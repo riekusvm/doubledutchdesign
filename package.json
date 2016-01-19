@@ -1,5 +1,5 @@
 {
-  "name": "doubledutchbras",
+  "name": "double dutch design customization tool",
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
@@ -40,6 +40,6 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "http://git.erikveld.nl/technics/doubledutch.git"
+    "url": "https://github.com/riekusvm/doubledutchdesign.git"
   }
 }
